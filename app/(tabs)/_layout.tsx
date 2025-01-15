@@ -1,7 +1,6 @@
-// app/(tabs)/_layout.tsx
 import { Tabs } from "expo-router";
-import { View } from "react-native";
 import React from "react";
+import HomeFeedScreen from ".";
 
 export default function TabLayout() {
   return (
@@ -9,18 +8,16 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: {
-          backgroundColor: "#000",
-        },
+        tabBarStyle: { backgroundColor: "#000" },
       }}
     >
-      {/* 
-        By default, every .tsx file in this folder (except _layout & +not-found)
-        becomes a separate tab. Example:
-          - index.tsx -> routeName "index"
-          - explore.tsx -> routeName "explore"
-          - ...
-      */}
+      <Tabs.Screen
+        // the file name must match whatever the route expects, e.g., "index.tsx" or "home.tsx"
+        // If your route is "index", name="index". If "home", name="home", etc.
+        name="index" 
+        options={{ title: "Home" }}
+      />
+      {/* other tabs */}
     </Tabs>
   );
 }
