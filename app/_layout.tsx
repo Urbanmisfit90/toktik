@@ -3,7 +3,6 @@ import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
 import React from "react";
-import { AuthProvider } from "./contexts/AuthContext";
 
 export default function RootLayout() {
   // Example: loading fonts or other async tasks
@@ -13,12 +12,10 @@ export default function RootLayout() {
   });
 
   return (
-    <AuthProvider>
       <Stack screenOptions={{ headerShown: false }}>
         {/* By default, load the (tabs) layout. */}
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="login" options={{ headerShown: false }} />
         {/* If you have other top-level screens, you can add them here */}
       </Stack>
-    </AuthProvider>
   );
 }
