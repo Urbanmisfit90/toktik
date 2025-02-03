@@ -15,7 +15,6 @@ import { Video, Audio } from "expo-av";
 import styled from "styled-components/native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useFocusEffect, useRouter } from "expo-router";
-import { useAuth } from "../contexts/AuthContext";
 
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 
@@ -70,7 +69,6 @@ const videoData: VideoItem[] = [
 
 export default function HomeFeedScreen() {
   const router = useRouter();
-  const { user } = useAuth();
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [videos, setVideos] = useState(videoData);
@@ -81,14 +79,6 @@ export default function HomeFeedScreen() {
   useEffect(() => {
     Audio.setAudioModeAsync({ playsInSilentModeIOS: true }).catch(console.warn);
   }, []);
-
-  useFocusEffect(
-    useCallback(() => {
-      if (!user) {
-        router.replace("/");
-      }
-    }, [user])
-  );
 
   const onViewableItemsChanged = useRef<
     (info: { viewableItems: ViewToken[]; changed: ViewToken[] }) => void
@@ -168,11 +158,6 @@ export default function HomeFeedScreen() {
       <Text style={styles.commentText}>{item.text}</Text>
     </View>
   );
-
-  // Show a blank screen or loader while waiting for layout mount or if user is missing
-  if (!user) {
-    return null;
-  }
 
   return (
     <View style={styles.container}>
